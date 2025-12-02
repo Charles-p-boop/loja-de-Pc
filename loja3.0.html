@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loja PC Gamer - Tudo em Um</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { background: #121212; color: #fff; padding-top: 70px; }
+    .navbar { background: #1f1f1f !important; }
+    .card { background: #1e1e1e; border: none; }
+    .card img { height: 200px; object-fit: cover; }
+    .nav-link { color: #aaa; }
+    .nav-link.active { color: #0d6efd !important; font-weight: bold; }
+    .section { display: none; }
+    .section.active { display: block; }
+  </style>
+</head>
+<body>
+ 
+<!-- Navbar Fixa -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Loja PC Gamer</a>
+    <div class="navbar-nav ms-auto">
+      <a class="nav-link active" href="#inicio" onclick="showSection('inicio')">Início</a>
+      <a class="nav-link" href="#produtos" onclick="showSection('produtos')">Produtos</a>
+      <a class="nav-link" href="#cadastro" onclick="showSection('cadastro')">Cadastro</a>
+      <button class="btn btn-outline-light ms-3" data-bs-toggle="modal" data-bs-target="#cartModal">
+        Carrinho (<span id="cartCount">0</span>)
+      </button>
+    </div>
+  </div>
+</nav>
+ 
+<div class="container mt-4">
+ 
+  <!-- INÍCIO -->
+  <div id="inicio" class="section active text-center py-5">
+    <h1 class="display-4">Bem-vindo à Loja PC Gamer!</h1>
+    <p class="lead">Os melhores computadores gamer com preço justo e entrega rápida.</p>
+    <button class="btn btn-primary btn-lg" onclick="showSection('produtos')">Ver Produtos</button>
+  </div>
+ 
+  <!-- PRODUTOS -->
+  <div id="produtos" class="section">
+    <h2 class="text-center mb-5">Nossos PCs Gamer</h2>
+    <div class="row">
+ 
+      <div class="col-md-4 mb-4">
+        <div class="card text-white">
+          <img src="PC.jpg" class="card-img-top">
+          <div class="card-body">
+            <h5>PC Gamer Entry</h5>
+            <p>i5-12400F + RTX 3060<br>16GB RAM + 512GB SSD</p>
+            <h4 class="text-success">R$ 4.299,00</h4>
+            <button class="btn btn-success w-100 add-to-cart" 
+                    data-name="PC Gamer Entry" data-price="4299">
+              Adicionar ao Carrinho
+            </button>
+          </div>
+        </div>
+      </div>
+ 
+      <div class="col-md-4 mb-4">
+        <div class="card text-white">
+          <img src="PC2.jpg" class="card-img-top">
+          <div class="card-body">
+            <h5>PC Gamer Pro</h5>
+            <p>Ryzen 7 5800X + RTX 4070<br>32GB RAM + 1TB NVMe</p>
+            <h4 class="text-success">R$ 7.999,00</h4>
+            <button class="btn btn-success w-100 add-to-cart" 
+                    data-name="PC Gamer Pro" data-price="7999">
+              Adicionar ao Carrinho
+            </button>
+          </div>
+        </div>
+      </div>
+ 
+      <div class="col-md-4 mb-4">
+        <div class="card text-white">
+          <img src="PC3.jpg" class="card-img-top">
+          <div class="card-body">
+            <h5>PC Gamer Ultimate</h5>
+            <p>i9-13900K + RTX 4090<br>64GB RAM + 2TB SSD</p>
+            <h4 class="text-success">R$ 18.999,00</h4>
+            <button class="btn btn-success w-100 add-to-cart" 
+                    data-name="PC Gamer Ultimate" data-price="18999">
+              Adicionar ao Carrinho
+            </button>
+          </div>
+        </div>
+      </div>
+ 
+    </div>
+  </div>
+ 
+  <!-- CADASTRO -->
+  <div id="cadastro" class="section">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <h2 class="text-center mb-4">Crie sua conta</h2>
+        <form id="formCadastro">
+          <div class="mb-3">
+            <label>Nome completo</label>
+            <input type="text" class="form-control" required>
+          </div>
+ 
+          <div class="mb-3">
+            <label>CPF</label>
+            <input type="text" class="form-control" id="cpf" placeholder="000.000.000-00" maxlength="14" required>
+            <div class="invalid-feedback">CPF inválido</div>
+          </div>
+ 
+          <div class="mb-3">
+            <label>E-mail</label>
+            <input type="email" class="form-control" required>
+          </div>
+ 
+          <div class="mb-3">
+            <label>Telefone</label>
+            <input type="text" class="form-control" id="telefone" placeholder="(11) 98765-4321" maxlength="15" required>
+            <div class="invalid-feedback">Use o formato: (11) 98765-4321</div>
+          </div>
+ 
+          <div class="mb-3">
+            <label>Senha</label>
+            <input type="password" class="form-control" required>
+          </div>
+ 
+          <button type="submit" class="btn btn-primary w-100">Criar Conta</button>
+        </form>
+      </div>
+    </div>
+  </div>
+ 
+</div>
+ 
+<!-- Modal do Carrinho -->
+<div class="modal fade" id="cartModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content bg-dark text-white">
+      <div class="modal-header">
+        <h5 class="modal-title">Seu Carrinho</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <ul id="cartItems" class="list-group"></ul>
+        <hr>
+        <h5>Total: R$ <span id="cartTotal">0,00</span></h5>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-success" id="finalizarCompra">Finalizar Compra</button>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Mudar de seção
+  function showSection(id) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+    document.querySelector(`a[href="#${id}"]`).classList.add('active');
+  }
+ 
+  // Formatação automática do CPF
+  document.getElementById('cpf').addEventListener('input', function(e) {
+    let valor = e.target.value.replace(/\D/g, '');
+    if (valor.length > 11) valor = valor.substr(0, 11);
+    valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
+    valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
+    valor = valor.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+    e.target.value = valor;
+  });
+ 
+  // Formatação automática do Telefone
+  document.getElementById('telefone').addEventListener('input', function(e) {
+    let valor = e.target.value.replace(/\D/g, '');
+    if (valor.length > 11) valor = valor.substr(0, 11);
+    if (valor.length <= 2) {
+      valor = valor.replace(/^(\d{0,2})/, '($1');
+    } else if (valor.length <= 7) {
+      valor = valor.replace(/^(\d{2})(\d)/, '($1) $2');
+    } else {
+      valor = valor.replace(/^(\d{2})(\d{5})(\d)/, '($1) $2-$3');
+    }
+    e.target.value = valor;
+  });
+ 
+  // Carrinho
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  updateCart();
+ 
+  document.querySelectorAll('.add-to-cart').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const name = btn.dataset.name;
+      const price = parseFloat(btn.dataset.price);
+      cart.push({ name, price });
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateCart();
+      alert(name + " adicionado ao carrinho!");
+    });
+  });
+ 
+  function updateCart() {
+    const itemsEl = document.getElementById('cartItems');
+    const totalEl = document.getElementById('cartTotal');
+    const countEl = document.getElementById('cartCount');
+    
+    itemsEl.innerHTML = '';
+    let total = 0;
+    
+    cart.forEach((item, i) => {
+      const li = document.createElement('li');
+      li.className = 'list-group-item bg-dark text-white d-flex justify-content-between';
+      li.innerHTML = `${item.name} - R$ ${item.price.toFixed(2)} 
+                      <button class="btn btn-sm btn-danger" onclick="removeFromCart(${i})">X</button>`;
+      itemsEl.appendChild(li);
+      total += item.price;
+    });
+    
+    totalEl.textContent = total.toFixed(2);
+    countEl.textContent = cart.length;
+  }
+ 
+  window.removeFromCart = function(index) {
+    cart.splice(index, 1);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCart();
+  };
+ 
+  document.getElementById('finalizarCompra').addEventListener('click', () => {
+    if (cart.length === 0) {
+      alert("Seu carrinho está vazio!");
+    } else {
+      alert("Compra finalizada com sucesso! Total: R$ " + document.getElementById('cartTotal').textContent);
+      cart = [];
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateCart();
+      bootstrap.Modal.getInstance(document.getElementById('cartModal')).hide();
+    }
+  });
+ 
+  // Validação CPF (sem os pontos e traços)
+  function validarCPF(cpf) {
+    cpf = cpf.replace(/\D/g, '');
+    if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) return false;
+    let soma = 0;
+    for (let i = 0; i < 9; i++) soma += parseInt(cpf[i]) * (10 - i);
+    let resto = (soma * 10) % 11;
+    if (resto === 10 || resto === 11) resto = 0;
+    if (resto !== parseInt(cpf[9])) return false;
+    soma = 0;
+    for (let i = 0; i < 10; i++) soma += parseInt(cpf[i]) * (11 - i);
+    resto = (soma * 10) % 11;
+    if (resto === 10 || resto === 11) resto = 0;
+    return resto === parseInt(cpf[10]);
+  }
+ 
+  // Validação do formulário
+  document.getElementById('formCadastro').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const cpfLimpo = document.getElementById('cpf').value.replace(/\D/g, '');
+    const tel = document.getElementById('telefone').value;
+    const telRegex = /^\(\d{2}\) \d{5}-\d{4}$/;
+ 
+    let valido = true;
+ 
+    if (!validarCPF(cpfLimpo)) {
+      document.getElementById('cpf').classList.add('is-invalid');
+      valido = false;
+    } else {
+      document.getElementById('cpf').classList.remove('is-invalid');
+    }
+ 
+    if (!telRegex.test(tel)) {
+      document.getElementById('telefone').classList.add('is-invalid');
+      valido = false;
+    } else {
+      document.getElementById('telefone').classList.remove('is-invalid');
+    }
+ 
+    if (valido) {
+      alert("Cadastro realizado com sucesso!");
+      showSection('inicio');
+    }
+  });
+</script>
+</body>
+</html>
+ 
